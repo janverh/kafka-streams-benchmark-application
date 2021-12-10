@@ -1,0 +1,83 @@
+TOPIC_MOVIES: movies
+TOPIC_RATINGS: ratings
+TOPIC_MOVIES_RATINGS_AVG: movies-ratings-avg
+TOPIC_RATINGS_FILTERED: ratings-filtered
+STREAMS_APP_ID: benchmark-application
+BOOTSTRAP_SERVERS: localhost:9092
+SCHEMA_REGISTRY_URL: http://localhost:8081
+
+STREAMS_COMMIT_INTERVAL_MS: 30000 # The frequency with which to save the position (offsets in source topics) of tasks. (100 if exactly_once)
+STREAMS_THREADS: 1 # The number of threads to execute stream processing.
+TOPOLOGY_OPTIMIZATION: all
+
+# durability
+ACKS: all # default switched in 3.0 from 1.0 to all
+ENABLE_IDEMPOTENCE: true # default switched in 3.0 from false to true
+MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION: 5
+ENABLE_AUTO_COMMIT: true
+REPLICATION_FACTOR: 1
+PROCESSING_GUARANTEE: at_least_once
+ISOLATION_LEVEL: read_uncommitted
+
+# latency
+LINGER_MS: 0
+COMPRESSION_TYPE: none
+FETCH_MIN_BYTES: 1
+# ACKS, TOPOLOGY_OPTIMIZATION
+
+# throughput/batch
+BATCH_SIZE: 16384
+# LINGER_MS, COMPRESSION_TYPE, ACKS, FETCH_MIN_BYTES
+
+spring:
+  application:
+    name: ${STREAMS_APP_ID}
+  kafka:
+    streams:
+      application-id: ${STREAMS_APP_ID}
+      bootstrap-servers: ${BOOTSTRAP_SERVERS}
+      properties:
+        topology.optimization: ${TOPOLOGY_OPTIMIZATION}
+        auto.register.schemas: true
+        auto.offset.reset: earliest
+        schema.registry.url: ${SCHEMA_REGISTRY_URL}
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        num.stream.threads: ${STREAMS_THREADS}
+
+        acks: ${acks}
+        enable.idempotence: ${ENABLE_IDEMPOTENCE}
+        max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
+        enable.auto.commit: ${ENABLE_AUTO_COMMIT}
+        replication.factor: ${REPLICATION_FACTOR}
+        processing.guarantee: ${PROCESSING_GUARANTEE}
+
+        linger.ms: ${LINGER_MS}
+        compression.type: ${COMPRESSION_TYPE}
+        fetch.min.bytes: ${FETCH_MIN_BYTES}
+
+        batch.size: ${BATCH_SIZE}
+
+        commit.interval.ms: ${STREAMS_COMMIT_INTERVAL_MS}
+      state-dir: /tmp/kafka-streams
+    consumer:
+      properties:
+        enable.auto.commit: ${ENABLE_AUTO_COMMIT}
+        fetch.min.bytes: ${FETCH_MIN_BYTES}
+        isolation.level: ${ISOLATION_LEVEL}
+    producer:
+      properties:
+        acks: ${acks}
+        replication.factor: ${REPLICATION_FACTOR}
+        enable.idempotence: ${ENABLE_IDEMPOTENCE}
+        max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
+        linger.ms: ${LINGER_MS}
+        batch.size: ${BATCH_SIZE}
+    bootstrap-servers: ${BOOTSTRAP_SERVERS}
+
+kafka:
+  topics:
+    movies: ${TOPIC_MOVIES}
+    ratings: ${TOPIC_RATINGS}
+    movies-ratings-avg: ${TOPIC_MOVIES_RATINGS_AVG}
+    ratings-filtered: ${TOPIC_RATINGS_FILTERED}

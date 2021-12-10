@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "Rating",
+  "namespace": "de.janverhoeven.avro",
+  "fields": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "score",
+      "type": "double",
+      "default": 0
+    },
+    {
+      "name": "ratingCount",
+      "type": "int",
+      "default": 0
+    }
+  ]
+}

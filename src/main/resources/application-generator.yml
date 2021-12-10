@@ -1,0 +1,13 @@
+spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        auto.register.schemas: true
+        schema.registry.url: ${SCHEMA_REGISTRY_URL}
+kafka:
+  generator:
+    message-limit:
+      ratings: 100000
+    throttle-ms: 100

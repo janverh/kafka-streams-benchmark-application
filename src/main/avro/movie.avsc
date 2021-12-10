@@ -1,0 +1,30 @@
+{
+  "type": "record",
+  "name": "Movie",
+  "namespace": "de.janverhoeven.avro",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "director",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "avgScore",
+      "type": [
+        "null",
+        "double"
+      ],
+      "default": null
+    }
+  ]
+}
