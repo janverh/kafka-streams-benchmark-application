@@ -22,7 +22,8 @@ public class RandomMessageGenerator {
     private final String topicMovies;
     private final String topicRatings;
 
-    private final int words = 7; // ~200 Bytes In (each message)
+    //private final int words = 7; // ~200 Bytes In (each message)
+    private final int ratingLength = 100;
     //private final int words = 113; // ~1KB In
     //private final int words = 641; // ~5KB In
     //private final int words = 3277; // ~25KB In
@@ -46,7 +47,7 @@ public class RandomMessageGenerator {
     public void startGenerating() {
         for (int i = 0; i < this.limitRatings; i++) {
             // Add a new movie every few ratings
-            if (i % 100 == 0) {
+            if (i % 1000 == 0) {
                 String key = UUID.randomUUID().toString();
                 this.movieKafkaTemplate.send(topicMovies, key, newRandomMovie());
                 alreadySentMovieIds.add(key);
@@ -60,7 +61,7 @@ public class RandomMessageGenerator {
         return Movie.newBuilder()
                 .setTitle(Faker.instance().book().title())
                 .setDirector(Faker.instance().funnyName().name())
-                .setSummary(Faker.instance().lorem().words(words).toString())
+                .setSummary(Faker.instance().lorem().paragraph().toString())
                 .setAvgScore(null)
                 .build();
     }
@@ -69,7 +70,7 @@ public class RandomMessageGenerator {
         return Rating.newBuilder()
                 .setScore(Faker.instance().number().randomDouble(1, 1, 10))
                 .setRatingCount(1)
-                .setText(Faker.instance().lorem().words(words).toString())
+		.setText(Faker.instance().lorem().characters(ratingLength).toString())
                 .build();
     }
 
