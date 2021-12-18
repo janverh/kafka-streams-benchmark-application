@@ -72,6 +72,8 @@ spring:
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
         linger.ms: ${LINGER_MS}
+        compression.type: ${COMPRESSION_TYPE}
+        fetch.min.bytes: ${FETCH_MIN_BYTES}
         batch.size: ${BATCH_SIZE}
     bootstrap-servers: ${BOOTSTRAP_SERVERS}
 
