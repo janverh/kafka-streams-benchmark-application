@@ -1,0 +1,8 @@
+TOPIC_MOVIES: movies.none.batch1
+TOPIC_RATINGS: ratings.none.batch1
+
+COMPRESSION_TYPE: none
+LINGER_MS: 25
+BATCH_SIZE: 50000
+FETCH_MIN_BYTES: 1
+PROCESSING_GUARANTEE: at_least_once
