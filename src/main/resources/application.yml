@@ -15,7 +15,7 @@ ACKS: all # default switched in 3.0 from 1.0 to all
 ENABLE_IDEMPOTENCE: true # default switched in 3.0 from false to true
 MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION: 5
 ENABLE_AUTO_COMMIT: true
-REPLICATION_FACTOR: 1
+REPLICATION_FACTOR: 3
 PROCESSING_GUARANTEE: at_least_once
 ISOLATION_LEVEL: read_uncommitted
 
@@ -45,7 +45,7 @@ spring:
         default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
         num.stream.threads: ${STREAMS_THREADS}
 
-        acks: ${acks}
+        acks: ${ACKS}
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
         enable.auto.commit: ${ENABLE_AUTO_COMMIT}
@@ -67,7 +67,7 @@ spring:
         isolation.level: ${ISOLATION_LEVEL}
     producer:
       properties:
-        acks: ${acks}
+        acks: ${ACKS}
         replication.factor: ${REPLICATION_FACTOR}
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
