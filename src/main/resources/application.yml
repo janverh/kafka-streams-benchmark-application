@@ -7,6 +7,7 @@ BOOTSTRAP_SERVERS: localhost:9092
 SCHEMA_REGISTRY_URL: http://localhost:8081
 
 STREAMS_COMMIT_INTERVAL_MS: 30000 # The frequency with which to save the position (offsets in source topics) of tasks. (100 if exactly_once)
+SESSION_TIMEOUT_MS: 300000
 STREAMS_THREADS: 1 # The number of threads to execute stream processing.
 TOPOLOGY_OPTIMIZATION: all
 
@@ -69,6 +70,7 @@ spring:
       properties:
         acks: ${ACKS}
         replication.factor: ${REPLICATION_FACTOR}
+        session.timeout.ms: ${SESSION_TIMEOUT_MS}
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
         linger.ms: ${LINGER_MS}
