@@ -66,11 +66,11 @@ spring:
         enable.auto.commit: ${ENABLE_AUTO_COMMIT}
         fetch.min.bytes: ${FETCH_MIN_BYTES}
         isolation.level: ${ISOLATION_LEVEL}
+        session.timeout.ms: ${SESSION_TIMEOUT_MS}
     producer:
       properties:
         acks: ${ACKS}
         replication.factor: ${REPLICATION_FACTOR}
-        session.timeout.ms: ${SESSION_TIMEOUT_MS}
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
         linger.ms: ${LINGER_MS}
