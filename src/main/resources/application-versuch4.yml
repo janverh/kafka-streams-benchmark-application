@@ -1,5 +1,5 @@
-TOPIC_MOVIES: movies.none.batch0
-TOPIC_RATINGS: ratings.none.batch0
+TOPIC_MOVIES: movies.none.batch
+TOPIC_RATINGS: ratings.none.batch
 
 COMPRESSION_TYPE: none
 LINGER_MS: 10

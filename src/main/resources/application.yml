@@ -7,7 +7,8 @@ BOOTSTRAP_SERVERS: localhost:9092
 SCHEMA_REGISTRY_URL: http://localhost:8081
 
 STREAMS_COMMIT_INTERVAL_MS: 30000 # The frequency with which to save the position (offsets in source topics) of tasks. (100 if exactly_once)
-SESSION_TIMEOUT_MS: 300000
+#SESSION_TIMEOUT_MS: 300000
+SESSION_TIMEOUT_MS: 10000
 STREAMS_THREADS: 5 # The number of threads to execute stream processing.
 TOPOLOGY_OPTIMIZATION: all
 
@@ -60,6 +61,7 @@ spring:
         batch.size: ${BATCH_SIZE}
 
         commit.interval.ms: ${STREAMS_COMMIT_INTERVAL_MS}
+        session.timeout.ms: ${SESSION_TIMEOUT_MS}
       state-dir: /tmp/kafka-streams
     consumer:
       properties:

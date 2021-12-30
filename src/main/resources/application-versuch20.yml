@@ -1,5 +1,5 @@
-TOPIC_MOVIES: movies.none.batch1
-TOPIC_RATINGS: ratings.none.batch1
+TOPIC_MOVIES: movies.none.batch
+TOPIC_RATINGS: ratings.none.batch
 
 REPLICATION_FACTOR: 3
 STREAMS_THREADS: 2

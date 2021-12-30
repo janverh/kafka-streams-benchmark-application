@@ -1,5 +1,5 @@
-TOPIC_MOVIES: movies.lz4.batch0
-TOPIC_RATINGS: ratings.lz4.batch0
+TOPIC_MOVIES: movies.lz4.batch
+TOPIC_RATINGS: ratings.lz4.batch
 
 COMPRESSION_TYPE: lz4
 LINGER_MS: 0
