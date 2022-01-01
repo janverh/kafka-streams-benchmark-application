@@ -6,25 +6,23 @@ STREAMS_APP_ID: benchmark-application
 BOOTSTRAP_SERVERS: localhost:9092
 SCHEMA_REGISTRY_URL: http://localhost:8081
 
-STREAMS_COMMIT_INTERVAL_MS: 30000 # The frequency with which to save the position (offsets in source topics) of tasks. (100 if exactly_once)
+STREAMS_COMMIT_INTERVAL_MS: 500 # The frequency with which to save the position (offsets in source topics) of tasks. (100 if exactly_once)
 #SESSION_TIMEOUT_MS: 300000
 SESSION_TIMEOUT_MS: 10000
-STREAMS_THREADS: 5 # The number of threads to execute stream processing.
+STREAMS_THREADS: 1 # The number of threads to execute stream processing.
 TOPOLOGY_OPTIMIZATION: all
 
 # durability
 ACKS: all # default switched in 3.0 from 1.0 to all
 ENABLE_IDEMPOTENCE: true # default switched in 3.0 from false to true
 MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION: 5
-ENABLE_AUTO_COMMIT: true
 REPLICATION_FACTOR: 3
 PROCESSING_GUARANTEE: at_least_once
-ISOLATION_LEVEL: read_uncommitted
 
 # latency
 LINGER_MS: 0
 COMPRESSION_TYPE: none
-FETCH_MIN_BYTES: 1
+FETCH_MAX_WAIT_MS: 10 # default: 500 => slow read if one (or more) partition-lag is zero
 # ACKS, TOPOLOGY_OPTIMIZATION
 
 # throughput/batch
@@ -50,24 +48,21 @@ spring:
         acks: ${ACKS}
         enable.idempotence: ${ENABLE_IDEMPOTENCE}
         max.in.flight.requests.per.connection: ${MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION}
-        enable.auto.commit: ${ENABLE_AUTO_COMMIT}
         replication.factor: ${REPLICATION_FACTOR}
         processing.guarantee: ${PROCESSING_GUARANTEE}
 
         linger.ms: ${LINGER_MS}
         compression.type: ${COMPRESSION_TYPE}
-        fetch.min.bytes: ${FETCH_MIN_BYTES}
 
         batch.size: ${BATCH_SIZE}
 
         commit.interval.ms: ${STREAMS_COMMIT_INTERVAL_MS}
         session.timeout.ms: ${SESSION_TIMEOUT_MS}
+
+        fetch.max.wait.ms: ${FETCH_MAX_WAIT_MS}
       state-dir: /tmp/kafka-streams
     consumer:
       properties:
-        enable.auto.commit: ${ENABLE_AUTO_COMMIT}
-        fetch.min.bytes: ${FETCH_MIN_BYTES}
-        isolation.level: ${ISOLATION_LEVEL}
         session.timeout.ms: ${SESSION_TIMEOUT_MS}
     producer:
       properties:
@@ -87,3 +82,9 @@ kafka:
     ratings: ${TOPIC_RATINGS}
     movies-ratings-avg: ${TOPIC_MOVIES_RATINGS_AVG}
     ratings-filtered: ${TOPIC_RATINGS_FILTERED}
+
+#logging:
+#level:
+#org.apache.kafka.common.consumer: "DEBUG"
+#org.apache.kafka.clients: "DEBUG"
+#root: "DEBUG"
